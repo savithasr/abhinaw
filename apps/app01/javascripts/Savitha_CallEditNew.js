@@ -133,7 +133,7 @@ var k = 0;
 var l = 0;   
 alert("INSIDE COMBO");
 alert(prodCount);
-for(j=0;j<prodCount;j++){
+for(j=0;j<5;j++){
 	var prodCombo = document.getElementById("prodNamePrDet");  
     var prodOption = document.createElement("option"); 
 	
