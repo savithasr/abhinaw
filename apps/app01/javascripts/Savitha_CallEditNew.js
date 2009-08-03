@@ -229,7 +229,7 @@ function createWebSerConn(callback)
 
 }
 
-/*function getListData(type, xmlData) {
+function getListData(type, xmlData) {
 	var arr = [];
 	jQuery(type, xmlData).each(function(index, item) {
 		var obj = {};
@@ -241,18 +241,19 @@ function createWebSerConn(callback)
 		arr.push(obj);
 	});
 	return arr;    
-}*/
-function getListData(type, xmlData) {
+}
+
+function getListDataProdDet(type, xmlData) {
 	    var arr1 = [];
-		var arr2 = [];
-		var arr3 = [];
+		//var arr2 = [];
+		//var arr3 = [];
 		var a=0;
-		var b=0;
-		var c=0;		
+		//var b=0;
+		//var c=0;		
 		jQuery(type, xmlData).each(function(index, item) {
 			var obj1 = {};
-			var obj2 = {};
-			var obj3 = {};
+		//var obj2 = {};
+		//	var obj3 = {};
 			jQuery(item).children().each(function(index, item) 
 			{
 			  var fieldName = jQuery(item).get(0).tagName;
@@ -278,8 +279,8 @@ function getListData(type, xmlData) {
 			//arr3.push(obj3);
 			
 			prodCount = a;
-			indicationCount = b;
-			issuesCount = c;
+			//indicationCount = b;
+			//issuesCount = c;
 			
 			});
 		return arr1;    
@@ -683,7 +684,7 @@ function callWebServToCreateProdDet(productId, activityId, callback)
 						},								
 						success: function(xmlData, textStatus) {
 						alert("successssfullllllllyy created the Product detailed");
-						var items = getListData('ProductsDetailed', xmlData);
+						var items = getListDataProdDet('ProductsDetailed', xmlData);
 						alert("items : " + items);
 						callback.call();
 							//loadCallDetailsPage();
