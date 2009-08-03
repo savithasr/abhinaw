@@ -142,6 +142,7 @@ for(j=0;j<prodCount;j++){
 	
       	prodOption.text=proditems[j];
 		prodOption.value=proditems[j];
+alert("prodOption.text:"+prodOption.text);
 		 try {  
         prodCombo.add(option, null); //Standard  
         }catch(error) {  
