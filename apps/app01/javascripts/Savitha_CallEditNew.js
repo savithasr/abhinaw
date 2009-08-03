@@ -219,7 +219,7 @@ function getListDataProd(type, xmlData) {
 	jQuery(type, xmlData).each(function(index, item) {
 		var obj = {};
 		jQuery(item).children().each(function(index, item) {
-		  var fieldName = jQuery(item).get(0).tagName;
+		  var fieldName = jQuery(item).get(1).tagName;
 		  var fieldValue = jQuery(item).text();
 		  obj[fieldName] = fieldValue;
 		  proditems[a++]=fieldValue;
