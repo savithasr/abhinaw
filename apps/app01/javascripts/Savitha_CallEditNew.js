@@ -126,9 +126,20 @@ function addNewRowProdDet(){
 	row += "<td>Issues:</td>";
 	row += "<td><select name='CallProdDetailNew.Issue' tabindex='6' onchange=onDropDownChange (this); class='inputControl' id='CallProdDetailNew.Issue'></select></td>";
 	row += "<td><input type='button' name='delete' value='delete' onclick='jQuery(this).parent().parent().parent().parent().parent().remove()'></input></td>";
-	row += "</tr></table></td></tr>";	
-	jQuery("#prodDetail").append(row);
-	addCombo();
+	row += "</tr></table></td></tr>";
+
+var e = jQuery("[class='buttonChildTitleBarTD']").filter("[id^='CallProdDetailNew']").get(0);
+e.onclick = function() {};
+jQuery("[class='buttonChildTitleBarTD']").filter("[id^='CallProdDetailNew']").click(function() {
+if ( jQuery("#prodDetail").size() === 0 ) {
+jQuery("#CallsProdDetailChildListDiv").next().replaceWith(html);
+addCombo();
+} else {
+jQuery("#prodDetail").append(row);
+addCombo();
+}
+});	
+	
 }
 
 function addCombo(){
@@ -279,7 +290,7 @@ function getListDataProdDet(type, xmlData) {
 			arr1.push(obj1);
 			//arr2.push(obj2);
 			//arr3.push(obj3);
-			
+			alert("a="+a);
 			prodCount = a;
 			//indicationCount = b;
 			//issuesCount = c;
