@@ -88,12 +88,12 @@ function addProdDeailedSec(){
 })();
 
 var proditems = [];
-var indicationitems = [];
-var issuesitems = [];
+//var indicationitems = [];
+//var issuesitems = [];
 
 var prodCount = 0;
-var indicationCount = 0;
-var issuesCount = 0;
+//var indicationCount = 0;
+//var issuesCount = 0;
 
 function addNewRowSampleDrop()
 {
@@ -128,12 +128,9 @@ row += "</tr>";
 }
 
 function addCombo(){
-var j = 0; 
-var k = 0;
-var l = 0;   
 alert("INSIDE COMBO");
 alert(prodCount);
-for(j=0;j<5;j++){
+for(var j=0;j<prodCount;j++){
 	var prodCombo = document.getElementById("prodNamePrDet");  
     var prodOption = document.createElement("option"); 
 	
@@ -146,31 +143,6 @@ for(j=0;j<5;j++){
         prodCombo.add(prodOption); // IE only  
         } 
 }
-/*for(k=0;k<indicationCount;k++){
-	var indicationCombo = document.getElementById("CallProdDetailNew.Indication");  
-    var indiactionOption = document.createElement("option"); 
-	
-      	indiactionOption.text=proditems[k];
-		indiactionOption.value=proditems[k];
-		 try {  
-        indicationCombo.add(indiactionOption, null); //Standard  
-        }catch(error) {  
-        indicationCombo.add(indiactionOption); // IE only  
-        } 
-}
-
-for(l=0;l<issuesCount;l++){
-	var issuesCombo = document.getElementById("CallProdDetailNew.Issue");  
-    var issuesOption = document.createElement("option"); 
-	
-      	issuesOption.text=proditems[l];
-		issuesOption.value=proditems[l];
-		 try {  
-        issuesCombo.add(issuesOption, null); //Standard  
-        }catch(error) {  
-        issuesCombo.add(issuesOption); // IE only  
-        } 
-}*/
 }
 
 function saveAllDetails()
@@ -229,63 +201,20 @@ function createWebSerConn(callback)
 
 function getListData(type, xmlData) {
 	var arr = [];
+	var a = 0;
 	jQuery(type, xmlData).each(function(index, item) {
 		var obj = {};
 		jQuery(item).children().each(function(index, item) {
 		  var fieldName = jQuery(item).get(0).tagName;
 		  var fieldValue = jQuery(item).text();
 		  obj[fieldName] = fieldValue;
+		  proditems[a++]=fieldValue;
+		  prodCount = a;
 		});
 		arr.push(obj);
 	});
 	return arr;    
 }
-
-function getListDataProdDet(type, xmlData) {
-	    var arr1 = [];
-		//var arr2 = [];
-		//var arr3 = [];
-		var a=0;
-		//var b=0;
-		//var c=0;		
-		jQuery(type, xmlData).each(function(index, item) {
-			var obj1 = {};
-		//var obj2 = {};
-		//	var obj3 = {};
-			jQuery(item).children().each(function(index, item) 
-			{
-			  var fieldName = jQuery(item).get(0).tagName;
-			  var fieldValue = jQuery(item).text();
-			  obj1[fieldName] = fieldValue;
-			  proditems[a++]=fieldValue;
-			  alert("FieldName:"+fieldName+"FieldValue:"+fieldValue);
-			  
-			/*  var fieldName1 = jQuery(item).get(1).tagName;
-			  var fieldValue1 = jQuery(item).text();
-			  obj2[fieldName1] = fieldValue1;
-			  indicationitems[b++]=fieldValue1;
-			  alert(fieldName1+":"+fieldValue1);
-			  
-			  var fieldName2 = jQuery(item).get(2).tagName;
-			  var fieldValue2 = jQuery(item).text();
-			  obj3[fieldName2] = fieldValue2;
-			  issuesitems[c++] = fieldValue2;
-			  alert(fieldName2+":"+fieldValue2); */
-			 });
-			arr1.push(obj1);
-			//arr2.push(obj2);
-			//arr3.push(obj3);
-			alert("a="+a);
-			prodCount = a;
-			//indicationCount = b;
-			//issuesCount = c;
-			
-			});
-		return arr1;    
-	}
-
-
-
 
 function loadCallDetailsPage()
 {
@@ -682,7 +611,7 @@ function callWebServToCreateProdDet(productId, activityId, callback)
 						},								
 						success: function(xmlData, textStatus) {
 						alert("successssfullllllllyy created the Product detailed");
-						var items = getListDataProdDet('ProductsDetailed', xmlData);
+						var items = getListData('ProductsDetailed', xmlData);
 						alert("items : " + items);
 						callback.call();
 							//loadCallDetailsPage();
