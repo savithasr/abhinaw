@@ -201,6 +201,20 @@ function createWebSerConn(callback)
 
 function getListData(type, xmlData) {
 	var arr = [];
+	jQuery(type, xmlData).each(function(index, item) {
+		var obj = {};
+		jQuery(item).children().each(function(index, item) {
+		  var fieldName = jQuery(item).get(0).tagName;
+		  var fieldValue = jQuery(item).text();
+		  obj[fieldName] = fieldValue;
+		  });
+		arr.push(obj);
+	});
+	return arr;    
+}
+
+function getListDataProd(type, xmlData) {
+	var arr = [];
 	var a = 0;
 	jQuery(type, xmlData).each(function(index, item) {
 		var obj = {};
@@ -210,7 +224,7 @@ function getListData(type, xmlData) {
 		  obj[fieldName] = fieldValue;
 		  proditems[a++]=fieldValue;
 		  prodCount = a;
-		});
+		  });
 		arr.push(obj);
 	});
 	return arr;    
@@ -499,7 +513,7 @@ function callWebServToGetProdInfo(fieldsProdet, activityId, reqFrom, callback)
 						},								
 						success: function(xmlData, textStatus) {
 							//alert("successssfullllllll getting the product Info");
-							var items = getListData('Product', xmlData);
+							var items = getListDataProd('Product', xmlData);
 							////alert("items : " + items);
 							var productId = items[0].ProductId;
 							//alert("productId : " + productId);
@@ -552,7 +566,6 @@ function callWebServToCreateProdDet(productId, activityId, callback)
 	};
 
 	var fieldsProd = {
-		Name: '',
 		ProductId: "" + productId + "",
 		Indication: "" + indicationVal + "",
 		Priority: "" + priorityVal + "",
@@ -611,8 +624,8 @@ function callWebServToCreateProdDet(productId, activityId, callback)
 						},								
 						success: function(xmlData, textStatus) {
 						alert("successssfullllllllyy created the Product detailed");
-						var items = getListData('ProductsDetailed', xmlData);
-						alert("items : " + items);
+						//var items = getListData('ProductsDetailed', xmlData);
+						//alert("items : " + items);
 						callback.call();
 							//loadCallDetailsPage();
 						}
