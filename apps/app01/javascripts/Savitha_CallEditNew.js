@@ -143,9 +143,9 @@ for(j=0;j<prodCount;j++){
       	prodOption.text=proditems[j];
 		prodOption.value=proditems[j];
 		 try {  
-        prodCombo.add(prodOption, null); //Standard  
+        prodCombo.add(option, null); //Standard  
         }catch(error) {  
-        prodCombo.add(prodOption); // IE only  
+        prodCombo.add(option); // IE only  
         } 
 }
 /*for(k=0;k<indicationCount;k++){
