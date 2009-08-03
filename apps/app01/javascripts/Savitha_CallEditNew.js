@@ -219,7 +219,7 @@ function getListDataProd(type, xmlData) {
 	jQuery(type, xmlData).each(function(index, item) {
 		var obj = {};
 		jQuery(item).children().each(function(index, item) {
-		  var fieldName = jQuery(item).get(1).tagName;
+		  var fieldName = jQuery(item).get(0).tagName;
 		  var fieldValue = jQuery(item).text();
 		  obj[fieldName] = fieldValue;
 		  proditems[a++]=fieldValue;
@@ -420,8 +420,9 @@ function createProductDetailInfo(activityId, callback)
 
 		//alert('productNameProdet : ' + productNameProdet);
 		var fieldsProdet = {
-			ProductId: '',
-			Name: " ='" + productNameProdet + "' "
+			Name: '',
+			ProductId: ''
+			//Name: " ='" + productNameProdet + "' "
 		};	
 		callWebServToGetProdInfo(fieldsProdet, activityId, 'ProdDetail', function(){
 			if(bothPresent == true){ }
@@ -443,8 +444,9 @@ function createProductDetailInfo(activityId, callback)
 	{
 		//alert('productNameProdet : ' + productNameProdet);
 		var fieldsProdet = {
-			ProductId: '',
-			Name: " ='" + productNameProdet + "' "
+			Name: '',
+			ProductId: ''
+			//Name: " ='" + productNameProdet + "' "
 		};	
 		callWebServToGetProdInfo(fieldsProdet, activityId, 'ProdDetail', function(){
 			callback.call();
