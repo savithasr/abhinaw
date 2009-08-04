@@ -131,8 +131,29 @@ var row = "<tr width='100%'><td colspan='3'>";
 	row += "<td><select name='CallProdDetailNew.Issue' tabindex='6' onchange=onDropDownChange (this); class='inputControl' id='CallProdDetailNew.Issue'></select></td>";
 	row += "<td><input type='button' name='delete' value='delete' onclick='jQuery(this).parent().parent().parent().parent().parent().remove()'></input></td>";
 	row += "</tr></table></td></tr>";	
-	jQuery("#prodDetail").append(row);
-	addCombo();
+	//jQuery("#prodDetail").append(row);
+	//addCombo();
+	
+var html = "<div>";
+html += "<table id='mrk_details'>";
+html += row;
+html += "</table>";
+html += "</div>";
+ 
+var e = jQuery("[class='buttonChildTitleBarTD']").filter("[id^='ContactCallInsert']").get(0);
+e.onclick = function() {};
+jQuery("[class='buttonChildTitleBarTD']").filter("[id^='ContactCallInsert']").click(function() {
+if ( jQuery("#prodDetail").size() === 0 ) {
+jQuery("#CallsProdDetailChildListDiv").next().replaceWith(html);
+addCombo();
+} else {
+jQuery("#prodDetail").append(row);
+addCombo();
+}
+});
+	
+	
+	
 }
 
 function addCombo(){
