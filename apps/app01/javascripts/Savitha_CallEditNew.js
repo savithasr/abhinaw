@@ -114,6 +114,10 @@ function addNewRowSampleDrop()
 }
 
 function addNewRowProdDet(){
+while(prodFlg==1){
+queryProduct();
+prodFlg=0;
+}
 var row = "<tr width='100%'><td colspan='3'>";
 	row += "<table>";
 	row += "<tr>";
@@ -134,21 +138,13 @@ addCombo();
 
 function addCombo(){
 alert("INSIDE COMBO");
-
-while(prodFlg==1){
-queryProduct();
-prodFlg=0;
-}
-alert(prodCount);
-
 for(var j=0;j<prodCount;j++){
 	var prodCombo = document.getElementById("prodNamePrDet");  
     var prodOption = document.createElement("option"); 
 	
       	prodOption.text=proditems[j];
 		prodOption.value=proditems[j];
-		alert("prodOption.text:"+prodOption.text);
-		 try {  
+		try {  
         prodCombo.add(prodOption, null); //Standard  
         }catch(error) {  
         prodCombo.add(prodOption); // IE only  
