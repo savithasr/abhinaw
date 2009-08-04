@@ -130,10 +130,12 @@ var row = "<tr width='100%'><td colspan='3'>";
 	row += "<td>Issues:</td>";
 	row += "<td><select name='CallProdDetailNew.Issue' tabindex='6' onchange=onDropDownChange (this); class='inputControl' id='CallProdDetailNew.Issue'></select></td>";
 	row += "<td><input type='button' name='delete' value='delete' onclick='jQuery(this).parent().parent().parent().parent().parent().remove()'></input></td>";
-	row += "</tr></table></td></tr>";	
+	row += "</tr></table></td></tr>";
+
+addCombo();	
 	jQuery("#prodDetail").append(row);
 
-addCombo();
+
 }
 
 function addCombo(){
