@@ -123,7 +123,7 @@ var row = "<tr width='100%'><td colspan='3'>";
 	row += "<table>";
 	row += "<tr>";
 	row += "<td><p style='color:red'>Product* </p></td>";
-	row += "<td><select STYLE='width: 130px' id='prodNamePrDet"+<%i%>+"' onchange=onDropDownChange (this);></select></td>";
+	row += "<td><select STYLE='width: 130px' id='prodNamePrDet<%=i%>' onchange=onDropDownChange (this);></select></td>";
 	row += "<td>Priority: </td>";
 	row += "<td><input name=CallProdDetailNew.Priority size='5' tabindex='4' type='text' value='' class=inputControl id='CallProdDetailNew.Priority' /></td>";
 	row += "<td><p style='color:red'>Indication*:</p></td>";
@@ -140,7 +140,7 @@ function addCombo(){
 alert("INSIDE COMBO");
 alert("prodFlg:"+prodFlg);
 for(var j=0;j<prodCount;j++){
-	var prodCombo = document.getElementById("prodNamePrDet"+i);  
+	var prodCombo = document.getElementById("prodNamePrDet<%=i%>");  
     var prodOption = document.createElement("option"); 
 	
       	prodOption.text=proditems[j];
