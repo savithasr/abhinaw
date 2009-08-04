@@ -135,7 +135,7 @@ var row = "<tr width='100%'><td colspan='3'>";
 	//addCombo();
 	
 var html = "<div>";
-html += "<table id='mrk_details'>";
+html += "<table id='prodDetail'>";
 html += row;
 html += "</table>";
 html += "</div>";
