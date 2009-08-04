@@ -122,7 +122,7 @@ var row = "<tr width='100%'><td colspan='3'>";
 	row += "<table>";
 	row += "<tr>";
 	row += "<td><p style='color:red'>Product* </p></td>";
-	row += "<td><select STYLE='width: 130px' id='prodNamePrDet'></select></td>";
+	row += "<td><select STYLE='width: 130px' id='prodNamePrDet' onchange=onDropDownChange (this);></select></td>";
 	row += "<td>Priority: </td>";
 	row += "<td><input name=CallProdDetailNew.Priority size='5' tabindex='4' type='text' value='' class=inputControl id='CallProdDetailNew.Priority' /></td>";
 	row += "<td><p style='color:red'>Indication*:</p></td>";
@@ -130,16 +130,14 @@ var row = "<tr width='100%'><td colspan='3'>";
 	row += "<td>Issues:</td>";
 	row += "<td><select name='CallProdDetailNew.Issue' tabindex='6' onchange=onDropDownChange (this); class='inputControl' id='CallProdDetailNew.Issue'></select></td>";
 	row += "<td><input type='button' name='delete' value='delete' onclick='jQuery(this).parent().parent().parent().parent().parent().remove()'></input></td>";
-	row += "</tr></table></td></tr>";
-
-addCombo();	
+	row += "</tr></table></td></tr>";	
 	jQuery("#prodDetail").append(row);
-
-
+	addCombo();
 }
 
 function addCombo(){
 alert("INSIDE COMBO");
+alert("prodFlg:"+prodFlg);
 for(var j=0;j<prodCount;j++){
 	var prodCombo = document.getElementById("prodNamePrDet");  
     var prodOption = document.createElement("option"); 
