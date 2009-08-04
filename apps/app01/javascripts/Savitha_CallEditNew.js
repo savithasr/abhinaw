@@ -851,7 +851,7 @@ function queryProduct()
 			  var fieldValue2 = jQuery(item).text();
 			  obj2[fieldName2] = fieldValue2;
 			  issuesitems[b++] = fieldValue2;
-			  alert(fieldName2+":"+fieldValue2); */
+			  alert(fieldName2+":"+fieldValue2); 
 			 });
 			arr.push(obj);
 			prodCount = a;
