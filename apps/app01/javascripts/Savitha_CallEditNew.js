@@ -82,7 +82,6 @@ function addProdDeailedSec(){
 	newTable += "<td width='100%'></td></tr>";
 	newTable += "<tr><td colspan='3'></td></tr></table></td></tr>";
 	jQuery("[id='ContactCallInsert.VONDMED Next Call']").parent().parent().parent().append(newTable);
-	addCombo();
 }
 
 })();
@@ -123,8 +122,8 @@ row += "<td><td class='fl' style='vertical-align:middle'><span class='fl'>Issues
 row += "<td><div class='buttonChildTitleBarTD' id='testdiv' onclick='jQuery(this).parent().parent().remove()'>Delete</div></td><td width='100%'></td>";
 row += "</tr>";
 
-	addCombo();
-	jQuery("#prodDetail").append(row);
+jQuery("#prodDetail").append(row);
+addCombo();
 }
 
 function addCombo(){
@@ -860,4 +859,4 @@ function queryProduct()
 			
 			});
 		return arr;    
-	}*/
+	} */
