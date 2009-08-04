@@ -129,7 +129,9 @@ row += "</tr>";
 
 function addCombo(){
 alert("INSIDE COMBO");
+queryProduct();
 alert(prodCount);
+
 for(var j=0;j<prodCount;j++){
 	var prodCombo = document.getElementById("prodNamePrDet");  
     var prodOption = document.createElement("option"); 
@@ -420,9 +422,8 @@ function createProductDetailInfo(activityId, callback)
 
 		//alert('productNameProdet : ' + productNameProdet);
 		var fieldsProdet = {
-			Name: '',
-			ProductId: ''
-			//Name: " ='" + productNameProdet + "' "
+			ProductId: '',
+			Name: " ='" + productNameProdet + "' "
 		};	
 		callWebServToGetProdInfo(fieldsProdet, activityId, 'ProdDetail', function(){
 			if(bothPresent == true){ }
@@ -444,9 +445,8 @@ function createProductDetailInfo(activityId, callback)
 	{
 		//alert('productNameProdet : ' + productNameProdet);
 		var fieldsProdet = {
-			Name: '',
-			ProductId: ''
-			//Name: " ='" + productNameProdet + "' "
+			ProductId: '',
+			Name: " ='" + productNameProdet + "' "
 		};	
 		callWebServToGetProdInfo(fieldsProdet, activityId, 'ProdDetail', function(){
 			callback.call();
@@ -719,3 +719,145 @@ function callWebServToCreateSampDrop(productId, activityId, callback)
 		//return true;
 	});
 }
+
+function queryProduct()
+	{
+		alert("Getting Product Info");
+		var fields = 
+		{
+		  Name: ''
+		  };
+		createWebServCall(fields);
+	}
+
+	function createWebSerConn(callback)
+	{
+		alert("creating connection with Web services");
+		var userName = 'MERCKTEST_CTE01/pfeil';
+		var password = 'method00';
+		try{
+			jQuery.ajax({
+			   url: '/Services/Integration?command=login',
+			   dataType: 'xml',
+			   beforeSend: function(xhr) {
+				   xhr.setRequestHeader('UserName', userName);
+				   xhr.setRequestHeader('Password', password);               
+			   },
+			   complete: function(xhr, textStatus) {
+					alert("created connection with Web services : " + xhr);
+				    callback.call(this, xhr, textStatus);    
+			   }
+		   });	
+		}
+		catch (e) {
+			alert('Error: ' + e.message);
+		}
+
+	}
+
+	function createWebServCall(fields)
+	{
+		createWebSerConn(function(xhr, textStatus){
+			var soapAction = 'document/urn:crmondemand/ws/product/10/2004:ProductQueryPage';
+			var soapRequestTemplate = '' +
+				'<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">' +
+				'   <soapenv:Header/>' +
+				'   <soapenv:Body>' +
+				'      <ProductWS_ProductQueryPage_Input xmlns="urn:crmondemand/ws/product/10/2004">' +
+				'		<PageSize>100</PageSize>' +
+				'         <ListOfProduct>' +
+				'            <Product>' +
+				'		        <%=fields%>' +
+				'	         </Product>' +
+				'         </ListOfProduct>' +
+				'        <StartRowNum>0</StartRowNum>' +
+				'      </ProductWS_ProductQueryPage_Input>' +
+				'   </soapenv:Body>' +
+				'</soapenv:Envelope>';		
+
+			var fieldsXML = '';
+			for (fieldName in fields) {
+				fieldsXML += '<' + fieldName + '>' + fields[fieldName] + '</' + fieldName + '>';
+			}
+		var soapRequest = soapRequestTemplate.replace("<%=fields%>", fieldsXML);	
+		try{
+				jQuery.ajax({
+							url: 'https://secure-ausomxapa.crmondemand.com/Services/Integration',
+							type: 'POST',
+							contentType: 'text/xml',
+							dataType: 'xml',
+							data: soapRequest,
+							beforeSend: function(xhr) {
+								alert("Before sending request for Query : " + xhr);
+								xhr.setRequestHeader('SOAPAction', '"' + soapAction + '"');  
+							},   
+							error: function(errormessage){
+							  alert("error:" +errormessage.responseText);
+							  },
+							complete: function(xhr, textStatus) {
+								alert("Completed");
+							},	                					  
+							success: function(xmlData, textStatus){
+								alert("successssfullllllll " + xmlData);
+								var items = getListDataProducts('Product', xmlData);
+								alert("items : " + items);
+								var productId = items[0].ProductId;
+								//alert("productId : " + productId);
+							}
+						});	
+			}
+			catch (e) {
+				alert('Error: ' + e.message);
+			}
+			//return true;
+		});
+	}
+	
+	function getListDataProducts(type, xmlData) {
+	    var arr = [];
+		var a=0;
+		jQuery(type, xmlData).each(function(index, item) {
+			var obj = {};
+			jQuery(item).children().each(function(index, item) 
+			{
+			  var fieldName = jQuery(item).get(0).tagName;
+			  var fieldValue = jQuery(item).text();
+			  obj[fieldName] = fieldValue;
+			  proditems[a++]=fieldValue;
+			  alert("FieldName:"+fieldName+"FieldValue:"+fieldValue);
+			});
+			arr.push(obj);
+			prodCount = a;
+			});
+		return arr;    
+	}
+
+/*function getListDataIndicationAndIssues(type, xmlData) {
+	    var arr = [];
+		var a = 0;
+		var b = 0;
+		jQuery(type, xmlData).each(function(index, item) {
+			var obj1 = {};
+			var obj2 = {};
+			jQuery(item).children().each(function(index, item) 
+			{
+			  var fieldName1 = jQuery(item).get(0).tagName;
+			  var fieldValue1 = jQuery(item).text();
+			  obj1[fieldName1] = fieldValue1;
+			  indicationitems[a++]=fieldValue1;
+			  alert("FieldName:"+fieldName+"FieldValue:"+fieldValue);
+			  
+			 var fieldName2 = jQuery(item).get(1).tagName;
+			  var fieldValue2 = jQuery(item).text();
+			  obj2[fieldName2] = fieldValue2;
+			  issuesitems[b++] = fieldValue2;
+			  alert(fieldName2+":"+fieldValue2); */
+			 });
+			arr.push(obj);
+			prodCount = a;
+			indicationCount = b;
+			issuesCount = c;
+			
+			});
+		return arr;    
+	}*/
