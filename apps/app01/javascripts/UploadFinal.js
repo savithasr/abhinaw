@@ -615,6 +615,8 @@ function callWebServToGetProdInfo(fieldsProdet, activityId, reqFrom, callback)
 
 function callWebServToCreateProdDet(productId, activityId, callback)
 {
+	var priorityVal = "";
+	var issueVal = "";
 	var indicationVal = document.getElementById('CallProdDetailNew.Indication').value;
 	var priorityVal = document.getElementById('CallProdDetailNew.Priority').value;
 	var issueVal = document.getElementById('CallProdDetailNew.Issue').value;
