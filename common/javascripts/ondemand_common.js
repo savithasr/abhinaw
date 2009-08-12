@@ -1,12 +1,13 @@
+
 (function() {
-
+ 
 function OnDemandLib() {}
-
+ 
 OnDemandLib.prototype.admin = {
     userName: 'MERCKTEST_CTE01/pfeil',
     password: 'method00'
 };
-
+ 
 //
 //  Charles's JavaScript Library for CRM On Demand R16
 //
@@ -21,8 +22,8 @@ OnDemandLib.prototype.admin = {
 //  1.04:   2009 05 xx  Code contributed by Duane Nelson
 //  2.01:   2009 06 03  Branch by Charles, add login function from Chris Stuart
 //
-
-
+ 
+ 
 //  ////////////////////////////////////////////////////////////////////////
 //
 //  ROUTINE: hide_detailchild_applet()
@@ -36,7 +37,7 @@ OnDemandLib.prototype.hide_detailchild_applet = function() {
     var tables = pn.getElementsByTagName("table");
     tables[tables.length - 1].style.display = "none";
 }
-
+ 
 //  ////////////////////////////////////////////////////////////////////////
 //
 //  ROUTINE: add_header_button()
@@ -72,7 +73,7 @@ OnDemandLib.prototype.add_header_button = function(section_name, position, butto
     var ih0;
     var ih1;
     var tabs = document.getElementsByTagName("table");
-
+ 
     for (i = 0; i < tabs.length; i++) {
         var td = tabs[i].getElementsByTagName("td");
         try {
@@ -80,7 +81,7 @@ OnDemandLib.prototype.add_header_button = function(section_name, position, butto
             // it's not the ones we're looking for
             ih0 = td[0].innerHTML;
             ih1 = td[1].innerHTML;
-
+ 
             if (ih0.indexOf(section_name) == 0 || ih1.indexOf(section_name) == 0) {
                 var tr = tabs[i].getElementsByTagName("tr");
                 var newtd = tr[0].insertCell(position);
@@ -100,8 +101,8 @@ OnDemandLib.prototype.add_header_button = function(section_name, position, butto
     }
     return false;
 }
-
-
+ 
+ 
 //  ////////////////////////////////////////////////////////////////////////
 //
 //  ROUTINE: add_footer_button()
@@ -128,17 +129,17 @@ OnDemandLib.prototype.add_header_button = function(section_name, position, butto
 //      false           button was not added
 //
 //  ////////////////////////////////////////////////////////////////////////
-
+ 
 OnDemandLib.prototype.add_footer_button = function(position, button_text, url, target_window, features) {
     var i;
     var ih;
     var mytables = document.getElementsByTagName("table");
-
+ 
     for (i = 0; i < mytables.length; i++) {
         try {
-
+ 
             if (mytables[i].getAttribute("class") == "footbar") {
-
+ 
                 // This can generate an exception we ignore, if so it means
                 // it's not the ones we're looking for
                 var mytr = mytables[i].getElementsByTagName("tr");
@@ -159,8 +160,8 @@ OnDemandLib.prototype.add_footer_button = function(position, button_text, url, t
     }
     return false;
 }
-
-
+ 
+ 
 //  ////////////////////////////////////////////////////////////////////////
 //
 //  ROUTINE: delete_button()
@@ -193,7 +194,7 @@ OnDemandLib.prototype.delete_button = function(section_name, position) {
             // This can generate an exception we ignore, if so it means
             // it's not the ones we're looking for
             ih = td[1].innerHTML;
-
+ 
             if (ih.indexOf(section_name) == 0) {
                 var tr = tabs[i].getElementsByTagName("tr");
                 tr[0].deleteCell(position);
@@ -206,10 +207,10 @@ OnDemandLib.prototype.delete_button = function(section_name, position) {
     }
     return false;
 }
-
-
-
-
+ 
+ 
+ 
+ 
 //  ////////////////////////////////////////////////////////////////////////
 //
 //  ROUTINE hide_printer_friendly
@@ -218,7 +219,7 @@ OnDemandLib.prototype.delete_button = function(section_name, position) {
 //
 //  ////////////////////////////////////////////////////////////////////////
 OnDemandLib.prototype.hide_printer_friendly = function() {
-
+ 
     try {
         var pf = document.getElementById('Printer_Friendly_Action');
         pf.style.display = "none";
@@ -226,7 +227,7 @@ OnDemandLib.prototype.hide_printer_friendly = function() {
     catch (e) {
     }
 }
-
+ 
 //  ////////////////////////////////////////////////////////////////////////
 //
 //  ROUTINE getLocal()
@@ -258,9 +259,9 @@ OnDemandLib.prototype.getLocal = function() {
     }
     return value;
 }
-
-
-
+ 
+ 
+ 
 //  ////////////////////////////////////////////////////////////////////////
 //
 //  ROUTINE: replace_quickcreate_link()
@@ -297,10 +298,10 @@ OnDemandLib.prototype.replace_quickcreate_link = function(linkname, url, target_
     for (i = 0; i < myanchors.length; i++) {
         try {
             if (myanchors[i].getAttribute("href").indexOf(linkname + "QuickCreate") != -1) {
-
+ 
                 // This can generate an exception we ignore, if so it means
                 // it's not the ones we're looking for
-
+ 
                 myanchors[i].setAttribute("href", url);
                 myanchors[i].setAttribute("target", target_window);
                 return true;
@@ -311,10 +312,10 @@ OnDemandLib.prototype.replace_quickcreate_link = function(linkname, url, target_
             // alert("Exception! " + ex.toString());
         }
     }
-
-
+ 
+ 
 }
-
+ 
 //  ////////////////////////////////////////////////////////////////////////
 //
 //  ROUTINE: trap_contact_new()
@@ -359,12 +360,12 @@ OnDemandLib.prototype.trap_contact_new = function(url, target_window, features) 
         }
     }
 }
-
-
+ 
+ 
 OnDemandLib.prototype.hide_global_applet = function(appletname) {
     //     Hide my element of the action bar ... note that you need to name
     //     your global web applet Scripts or change the string below
-
+ 
     try {
         var tds = document.getElementsByTagName("td");
         var i;
@@ -374,15 +375,15 @@ OnDemandLib.prototype.hide_global_applet = function(appletname) {
                 return true;
             }
         }
-
+ 
     }
-
+ 
     catch (e) {
     }
 }
-
-
-
+ 
+ 
+ 
 //  ////////////////////////////////////////////////////////////////////////
 //
 //  ROUTINE: sso_login
@@ -431,7 +432,7 @@ OnDemandLib.prototype.sso_login = function(ssotoken, callback) {
         }
     } catch (e) { alert('Error: ' + e.message); }
 }
-
+ 
 OnDemandLib.prototype.user_login = function(userName, password, callback) {
     var pageroot = document.location;
     pageroot = pageroot.toString();
@@ -473,9 +474,9 @@ OnDemandLib.prototype.user_login = function(userName, password, callback) {
         }
     } catch (e) { alert('Error: ' + e.message); }
 }
-
-
-
+ 
+ 
+ 
 //  ////////////////////////////////////////////////////////////////////////
 //
 //  ROUTINE: sso_logoff
@@ -512,49 +513,49 @@ OnDemandLib.prototype.sso_logoff = function(callback) {
         else {
             oXMLHttpRequest.open('GET', pageroot + '/Services/Integration' + commandStr, false);
         }
-
+ 
         oXMLHttpRequest.send(null);
         if (callback.length == 0) {
             return (oXMLHttpRequest.status == 200);
         }
     } catch (e) { alert('Error: ' + e.message); }
 }
-
+ 
 OnDemandLib.prototype.user_logoff = OnDemandLib.prototype.sso_logoff;
-
+ 
 //
 //  query_user
 //
-
+ 
 OnDemandLib.prototype.query_user = function(fields, callback) {
     var inSoap;
     var x;
     var pageroot = document.location;
     pageroot = pageroot.toString();
     pageroot = pageroot.substr(0, pageroot.indexOf('/', 10));
-
+ 
     inSoap = '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:user="urn:crmondemand/ws/user/" xmlns:user1="urn:/crmondemand/xml/user">';
     inSoap += '<soapenv:Header/>';
     inSoap += '<soapenv:Body>';
     inSoap += '<user:UserWS_UserQueryPage_Input>';
     inSoap += '<user1:ListOfUser>';
     inSoap += '<user1:User>';
-
+ 
     for (x in fields) {
         inSoap += '<user1:' + x + '>' + fields[x] + '</user1:' + x + '>';
     }
-
+ 
     inSoap += '</user1:User>';
     inSoap += '</user1:ListOfUser>';
     inSoap += '</user:UserWS_UserQueryPage_Input>';
     inSoap += '</soapenv:Body>';
     inSoap += '</soapenv:Envelope>';
-
+ 
     // Submit XML request, run callback function upon response
     try {
         var oXMLHttpRequest = new XMLHttpRequest;
         if (callback) {
-
+ 
             oXMLHttpRequest.open('POST', pageroot + '/Services/Integration', true);
             oXMLHttpRequest.onreadystatechange = function() {
                 if (this.readyState == XMLHttpRequest.DONE) {
@@ -570,7 +571,7 @@ OnDemandLib.prototype.query_user = function(fields, callback) {
         else {
             oXMLHttpRequest.open('POST', pageroot + '/Services/Integration', false);
         }
-
+ 
         oXMLHttpRequest.setRequestHeader('SOAPAction', '"document/urn:crmondemand/ws/user/:UserQueryPage"');
         oXMLHttpRequest.setRequestHeader('Content-Type', 'text/xml');
         oXMLHttpRequest.send(inSoap);
@@ -578,13 +579,13 @@ OnDemandLib.prototype.query_user = function(fields, callback) {
     catch (e) {
         alert('Error: ' + e.message);
     }
-
+ 
     if (callback.length == 0) {
         alert(oXMLHttpRequest.responseText);
         return oXMLHttpRequest.responseXML;
     }
 }
-
+ 
 OnDemandLib.prototype.getListData = function(type, xmlData) {
     var arr = [];
     jQuery(type, xmlData).each(function(index, item) {
@@ -598,7 +599,7 @@ OnDemandLib.prototype.getListData = function(type, xmlData) {
     });
     return arr;    
 }
-
+ 
 OnDemandLib.prototype.my_query_user = function(fields, callback) {
     var that = this;
     var inSoap;
@@ -606,24 +607,24 @@ OnDemandLib.prototype.my_query_user = function(fields, callback) {
     var pageroot = document.location;
     pageroot = pageroot.toString();
     pageroot = pageroot.substr(0, pageroot.indexOf('/', 10));
-
+ 
     inSoap = '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">';
     inSoap += '<soapenv:Header/>';
     inSoap += '<soapenv:Body>';
     inSoap += '<UserWS_UserQueryPage_Input xmlns="urn:crmondemand/ws/user/">';
     inSoap += '<ListOfUser>';
     inSoap += '<User>';
-
+ 
     for (x in fields) {
         inSoap += '<' + x + '>' + fields[x] + '</' + x + '>';
     }
-
+ 
     inSoap += '</User>';
     inSoap += '</ListOfUser>';
     inSoap += '</UserWS_UserQueryPage_Input>';
     inSoap += '</soapenv:Body>';
     inSoap += '</soapenv:Envelope>';
-
+ 
     // Submit XML request, run callback function upon response
     try {
         
@@ -648,7 +649,7 @@ OnDemandLib.prototype.my_query_user = function(fields, callback) {
         alert('Error: ' + e.message);
     }
 }
-
+ 
 OnDemandLib.prototype.manualQuery = function(entityType, fields, soapAction, soapRequestTemplate, callback) {
     var that = this;
     
@@ -677,15 +678,15 @@ OnDemandLib.prototype.manualQuery = function(entityType, fields, soapAction, soa
         },            
         success: function(xmlData, textStatus) {
             var items = that.getListData(entityTypeCapitalized, xmlData);
-
+ 
             if (callback.itemsCache) {
                 callback.itemsCache = callback.itemsCache.concat(items);
             } else {
                 callback.itemsCache = [].concat(items);
             }
-
+ 
             var lastPage = jQuery('ns\\:LastPage', xmlData).text().toLowerCase();
-
+ 
             if (lastPage == 'true') {
                 callback.more = false;
                 callback(callback.itemsCache);
@@ -696,9 +697,9 @@ OnDemandLib.prototype.manualQuery = function(entityType, fields, soapAction, soa
             window.xmlData = xmlData;
         }
     });
-
+ 
 }
-
+ 
 OnDemandLib.prototype.entityQuery = function(entityType, fields, callback) {    
     var that = this;
     var inSoap;
@@ -722,7 +723,7 @@ OnDemandLib.prototype.entityQuery = function(entityType, fields, callback) {
             callback.startRowNum = callback.startRowNum + pageSize;
         }
     }
-
+ 
     inSoap = '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">';
     inSoap += '<soapenv:Header/>';
     inSoap += '<soapenv:Body>';
@@ -731,17 +732,17 @@ OnDemandLib.prototype.entityQuery = function(entityType, fields, callback) {
     inSoap += '<PageSize>' + pageSize + '</PageSize>';
     inSoap += '<ListOf' + entityTypeCapitalized + '>';
     inSoap += '<' + entityTypeCapitalized + '>';
-
+ 
     for (x in fields) {
         inSoap += '<' + x + '>' + fields[x] + '</' + x + '>';
     }
-
+ 
     inSoap += '</' + entityTypeCapitalized + '>';
     inSoap += '</ListOf' + entityTypeCapitalized + '>';
     inSoap += '</' + entityTypeCapitalized + 'WS_' + entityTypeCapitalized + 'QueryPage_Input>';
     inSoap += '</soapenv:Body>';
     inSoap += '</soapenv:Envelope>';
-
+ 
     // Submit XML request, run callback function upon response
     try {
         
@@ -758,15 +759,15 @@ OnDemandLib.prototype.entityQuery = function(entityType, fields, callback) {
             },
             success: function(xmlData, textStatus) {
                 var items = that.getListData(entityTypeCapitalized, xmlData);
-
+ 
                 if (callback.itemsCache) {
                     callback.itemsCache = callback.itemsCache.concat(items);
                 } else {
                     callback.itemsCache = [].concat(items);
                 }
-
+ 
                 var lastPage = jQuery('ns\\:LastPage', xmlData).text().toLowerCase();
-
+ 
                 if (lastPage == 'true') {
                     callback.more = false;
                     callback(callback.itemsCache);
@@ -782,7 +783,7 @@ OnDemandLib.prototype.entityQuery = function(entityType, fields, callback) {
         alert('Error: ' + e.message);
     }
 }
-
+ 
 OnDemandLib.prototype.activityQuery = function(fields, callback) {
     var soapAction = 'document/urn:crmondemand/ws/activity/10/2004:Activity_QueryPage';
     var soapRequestTemplate = '' +
@@ -805,73 +806,12 @@ OnDemandLib.prototype.activityQuery = function(fields, callback) {
         callback(data);
     });
 }
-
-OnDemandLib.prototype.saveProdDetail = function ()
-{
-	var prodName = "Singulair 20x40mg";
-	var indication = "Allergy";
-	
-	var fields = {
-            ProductId: " ='" + prodName + "' ",
-            IndexedPick0: " ='" + indication + "' "
-        };
-	
-    var pageroot = document.location;
-    pageroot = pageroot.toString();
-    pageroot = pageroot.substr(0, pageroot.indexOf('/', 10)); 	
-	
-    var soapAction = 'document/urn:crmondemand/ws/product/10/2004:ProductInsert';
-    var soapRequestTemplate = '' +
-        '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">' +
-        '   <soapenv:Header/>' +
-        '   <soapenv:Body>' +
-        '      <ProductWS_ProductInsert_Input xmlns="urn:crmondemand/ws/product/10/2004">' +
-        '         <ListOfProduct>' +
-        '            <Product>' +
-        '               <%=fields%>' +
-        '            </Product>' +
-        '         </ListOfProduct>' +
-        '      </ProductWS_ProductInsert_Input>' +
-        '   </soapenv:Body>' +
-        '</soapenv:Envelope>';
-
-	var fieldsXML = '';
-	for (fieldName in fields) {
-		fieldsXML += '<' + fieldName + '>' + fields[fieldName] + '</' + fieldName + '>';
-	}
-	
-	var soapRequest = soapRequestTemplate.replace("<%=fields%>", fieldsXML);		
-		
-	//var xmldoc = new ActiveXObject("Microsoft.XMLDOM"); 
-	//xmldoc.loadXML(soapRequest); 
-	//xmlhttp=new ActiveXObject("Microsoft.XMLHTTP"); 
-	//xmlhttp.onreadystatechange = state_Change; 
-	//xmlhttp.open("POST", "https://secure-ausomxapa.crmondemand.com/Services/Integration", false); 
-	//xmlhttp.setRequestHeader ("SOAPAction", soapAction); 
-	//xmlhttp.setRequestHeader ("Content-Type", "text/xml"); 
-	//xmlhttp.send(xmldoc); 
-
-	//alert(xmlhttp.responseXML.xml);
-	
-	jQuery.ajax({
-			url: pageroot + '/Services/Integration',
-			type: 'POST',
-			contentType: 'text/xml',
-			dataType: 'xml',
-			data: soapRequest,
-			beforeSend: function(xhr) {
-				xhr.setRequestHeader('SOAPAction', '"' + soapAction + '"');
-			},            
-			success: function(xmlData, textStatus) {
-			}
-		});	
-}
-
+ 
 OnDemandLib.prototype.login = function(callback) {
-
+ 
     var userName = this.admin.userName;
     var password = this.admin.password;
-
+ 
     jQuery.ajax({
        url: '/Services/Integration?command=login',
        dataType: 'xml',
@@ -885,12 +825,14 @@ OnDemandLib.prototype.login = function(callback) {
    });
     
 }
-
-
-
-
+ 
+ 
+ 
+ 
 if (!window.odlib) {
     window.odlib = new OnDemandLib;
 }
-
+ 
 })();
+ 
+
