@@ -5,7 +5,7 @@
 
     // URL builder helper
     function appURL(relativePath) {
-      var basePath = 'http://github.com/savithasr/abhinaw/tree/master';
+      var basePath = 'http://github.com/savithasr/abhinaw/raw/master';
 	  alert("Path : " + basePath + relativePath);
       return basePath + relativePath;
     }
