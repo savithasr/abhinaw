@@ -1,13 +1,13 @@
 (function(){
 
 del_footer_button(1);
-add_footer_button(1,'Save','saveAllDetails()','_top',40);
+add_footer_button(1,'Save','saveMidway1()','_top',40);
 del_footer_button(2);
-add_footer_button(2,'Save & New Call','saveAndNewAllDetails()','_top',40);
+add_footer_button2(2,'Save & New Call','saveandnewMidway1()','_top',40);
 delete_button('Call Details', 1);
 delete_button('Call Details', 1);
-createNewSaveButton('Call Details',1,'Save','saveAllDetails()','_top',40);
-createNewSaveButton('Call Details',2,'Save & New Call','saveAndNewAllDetails()','_top',40);
+createNewSaveButton('Call Details',1,'Save','saveMidway1()','_top',40);
+createNewSaveButton2('Call Details',2,'Save & New Call','saveandnewMidway1()','_top',40);
 addProdDeailedSec();
 addSamplesDropSec();
 
@@ -37,10 +37,34 @@ function add_footer_button(position, button_text, url, target_window, features) 
             if (mytables[i].className == "footbar") {
                  var mytr = mytables[i].getElementsByTagName("tr");				
                  var newtd = mytr[0].insertCell(position);
-                    newtd.innerHTML = "<div class='buttonTD' " +
+                    newtd.innerHTML = "<div id='foot' class='buttonTD' " +
                     "onmouseover='toggleNavButton(this);' " +
                     "onmouseout='toggleNavButton(this);' " +
-					"onclick='"+url+";' \>" +
+					"onclick='if(saveFlg==1){"+url+";}'\>" +
+                   // "onclick=\"window.open('" + url + "', '" + target_window + "', '" + features + "');\" >" +
+                    button_text + "</div>";
+                return true;
+            }
+        } catch (ex) {
+            // you really don't want to enable this unless at wits end
+            // alert("Exception! " + ex.toString());
+        }
+    }
+    return false;
+}
+
+function add_footer_button2(position, button_text, url, target_window, features) {
+    var i;
+    var mytables = document.getElementsByTagName("table");
+    for (i = 0; i < mytables.length; i++) {
+        try {
+            if (mytables[i].className == "footbar") {
+                 var mytr = mytables[i].getElementsByTagName("tr");				
+                 var newtd = mytr[0].insertCell(position);
+                    newtd.innerHTML = "<div id='foot2' class='buttonTD' " +
+                    "onmouseover='toggleNavButton(this);' " +
+                    "onmouseout='toggleNavButton(this);' " +
+					"onclick='if(saveFlg==1){"+url+";}'\>" +
                    // "onclick=\"window.open('" + url + "', '" + target_window + "', '" + features + "');\" >" +
                     button_text + "</div>";
                 return true;
@@ -93,12 +117,13 @@ function createNewSaveButton(section_name, position, button_text, url, target_wi
 				var tr = tabs[i].getElementsByTagName("tr");
 				var newtd = tr[0].insertCell(position);
 
-				newtd.innerHTML = "<div class='buttonTD' " +
+				newtd.innerHTML = "<div id='head' class='buttonTD' " +
 				"id='testSave' " +
 				"onmouseover='toggleNavButton(this);' " +
 				"onmouseout='toggleNavButton(this);' " +
 				"onkeypress='onButtonPress(this);' " +
-				"onclick='"+url+";' \>" +
+				//"onclick='"+url+";'\>" +
+				"onclick='if(saveFlg==1){"+url+";}'\>" +
 				button_text + "</div>";
 				return true;
 			}
@@ -108,8 +133,41 @@ function createNewSaveButton(section_name, position, button_text, url, target_wi
 	return false;
 }
 
+function createNewSaveButton2(section_name, position, button_text, url, target_window, features){
+	var i;
+	var ih0;
+	var ih1;
+	var tabs = document.getElementsByTagName("table");
+	for (i = 0; i < tabs.length; i++) 
+	{
+	  var td = tabs[i].getElementsByTagName("td");
+		try 
+		  {
+			ih0 = td[0].innerHTML;
+			ih1 = td[1].innerHTML;
+			if (ih0.indexOf(section_name) == 0 || ih1.indexOf(section_name) == 0) 
+				{
+				var tr = tabs[i].getElementsByTagName("tr");
+				var newtd = tr[0].insertCell(position);
+
+				newtd.innerHTML = "<div id='head2' class='buttonTD' " +
+				"id='testSave' " +
+				"onmouseover='toggleNavButton(this);' " +
+				"onmouseout='toggleNavButton(this);' " +
+				"onkeypress='onButtonPress(this);' " +
+				//"onclick='"+url+";'\>" +
+				"onclick='if(saveFlg==1){"+url+";}'\>" +
+				button_text + "</div>";
+				return true;
+			}
+		} 
+		catch (ex) {}
+	}
+	return false;
+}
+
+
 function addSamplesDropSec(){
-	
 	var newTable = "<tr><td colspan='5'>";
 	newTable += "<table class='ctb' cellspacing='0' cellpadding='0' id='sampleDrop'>";
 	newTable += "<tr><td>Samples Dropped</td>";
@@ -131,20 +189,57 @@ function addProdDeailedSec(){
 
 })();
 
+function saveMidway1()
+{
+document.getElementById('foot').disabled=true;
+document.getElementById('head').disabled=true;
+document.getElementById('foot2').disabled=true;
+document.getElementById('head2').disabled=true;
+saveFlg=0;
+saveAllDetails();
+}
+function saveMidway2()
+{
+document.getElementById('foot').disabled=false;
+document.getElementById('head').disabled=false;
+document.getElementById('foot2').disabled=false;
+document.getElementById('head2').disabled=false;
+saveFlg=1;
+}
+function saveandnewMidway1()
+{
+newbutton=1;
+document.getElementById('foot2').disabled=true;
+document.getElementById('head2').disabled=true;
+document.getElementById('foot').disabled=true;
+document.getElementById('head').disabled=true;
+saveFlg=0;
+saveAndNewAllDetails();
+}
+function saveandnewMidway2()
+{
+document.getElementById('foot2').disabled=false;
+document.getElementById('head2').disabled=false;
+document.getElementById('foot').disabled=false;
+document.getElementById('head').disabled=false;
+saveFlg=1;
+}
 
 function addNewRowSampleDrop()
 {
 	var row = "<tr width='100%'><td colspan='3'>";
 	row += "<table>";
 	row += "<tr>";
-	row += "<td>Product Category </td>";
-	row += "<td><input name='CallSampDropNew.Primary Product Line Name' id='CallSampDropNew.Primary Product Line Name' maxlength='100' class='inputReadOnly' tabindex='-1' readonly='readonly' type='text' value='' size='20' /></td>";
+	//row += "<td>Product Category </td>";
+	//row += "<td><input name='CallSampDropNew.Primary Product Line Name' id='CallSampDropNew.Primary Product Line Name' maxlength='100' class='inputReadOnly' tabindex='-1' readonly='readonly' type='text' value='' size='20' /></td>";
 	row += "<td><span style='color:red' class='requiredText'>Product* </span></td>";
 	row += "<td><select STYLE='width: 130px' id='prodNameSamDrop'><option value='none'></option><option value='Arcoxia 120mg'>Arcoxia 120mg</option><option value='Crocin'>Crocin</option><option value='Omez'>Omez</option><option value='Singulair 10x100mg'>Singulair 10x100mg</option><option value='Singulair 20x40mg'>Singulair 20x40mg</option></select></td>";
+	row += "<td><span id=div3 style='color:red' style='visibility:hidden' class='requiredText'>required</span></td>";
 	row += "<td>Lot # </td>";
-	row += "<td><input name='CallSampDropNew.LOT Name' size='5' maxlength='20' type='text' value='' class='inputControl' id='CallSampDropNew.LOT Name' /></td></td>";
+	row += "<td><input name='CallSampDropNew.LOT Name' size='5' maxlength='20' type='text' value='' class='inputControl' id='CallSampDropNew.LOT Name'/></td></td>";
 	row += "<td><span style='color:red' class='requiredText'>Quantity* </span></td>";
 	row += "<td><input name='CallSampDropNew.Quantity' size='20' type='text' value='' class='inputControl' id='CallSampDropNew.Quantity' /></td>";
+	row += "<td><span id=div4 style='color:red' style='visibility:hidden' class='requiredText'>required</span></td>";
 	row += "<td><input type='button' name='delete' id='ROWID' value='delete' onclick= rowDelete();></input></td>";
 	row += "</tr></table></td></tr>";	
 	jQuery("#sampleDrop").append(row);
@@ -164,11 +259,12 @@ function addNewRowProdDet(){
 	row += "<tr>";
 	row += "<td><span style='color:red' class='requiredText'>Product* </span></td>";
 	row += "<td><select STYLE='width: 130px' id='prodNamePrDet'><option value='none'></option><option value='Arcoxia 120mg'>Arcoxia 120mg</option><option value='Crocin'>Crocin</option><option value='Omez'>Omez</option><option value='Singulair 10x100mg'>Singulair 10x100mg</option><option value='Singulair 20x40mg'>Singulair 20x40mg</option></select></td>";
-	row += "<td><span id=div1 style='color:red' style='visibility:hidden' class='requiredText'>required*</span></td>";
+	row += "<td><span id=div1 style='color:red' style='visibility:hidden' class='requiredText'>required</span></td>";
 	row += "<td>Priority: </td>";
 	row += "<td><input name=CallProdDetailNew.Priority size='5' tabindex='4' type='text' value='' class=inputControl id='CallProdDetailNew.Priority' /></td>";
 	row += "<td><span style='color:red' class='requiredText'>Indication*:</span></td>";
 	row += "<td><select name='CallProdDetailNew.Indication' tabindex='5' onchange=onDropDownChange (this); class=inputControl id='CallProdDetailNew.Indication'><option /><option value='Allergy'>Allergy</option><option value='Asthma'>Asthma</option><option value='Arrhythmia'>Arrhythmia</option><option value='Heart Failure'>Heart Failure</option><option value='Syncope'>Syncope</option><option value='Other'>Other</option></select></td>";
+	row += "<td><span id=div2 style='color:red' style='visibility:hidden' class='requiredText'>required</span></td>";
 	row += "<td>Issues:</td>";
 	row += "<td><select name='CallProdDetailNew.Issue' tabindex='6' onchange=onDropDownChange (this); class='inputControl' id='CallProdDetailNew.Issue'><option /><option value='Side Effects'>Side Effects</option><option value='Efficacy'>Efficacy</option><option value='Cost vs. Generics'>Cost vs. Generics</option><option value='Price'>Price</option></select></td>";
 	row += "<td><input type='button' name='delete' id='ROWID2' value='delete' onclick=rowDelete2();></input></td>";
@@ -185,14 +281,6 @@ jQuery("#ROWID2").parent().parent().parent().parent().parent().remove();
 
 function saveAllDetails()
 {
-	//alert("Inside Save All details");
-	/*var i;
-	var e= $(".buttonTD");
-	for(i=0; i < e.length; i++)
-	{
-		e[i].style.disabled = 'true';
-	}*/
-
 	createNewCallActivity(function() {
 		loadCallDetailsPage();
 	});
@@ -310,22 +398,78 @@ function createNewCallActivity(callback){
 	var ownerVal = $("input[id='ContactCallInsert.Assigned To']").val();
 	
 	var prodIDC='Test';
+	var prodIDC2='Test';
 	if(ctrowprod!=0){
 	prodIDC= document.getElementById('prodNamePrDet').value;
+	prodIDC2= document.getElementById('CallProdDetailNew.Indication').value;
     //alert("prodIDC fetched: "+prodIDC);
 	}
+	
+	var sampIDC='Test';
+	var sampIDC2='Test';
+	if(ctrowsamp!=0){
+	sampIDC= document.getElementById('prodNameSamDrop').value;
+	sampIDC2= document.getElementById('CallSampDropNew.Quantity').value;
+	}
+	
 	
 	if((subjectValue == null || subjectValue == '') || (startTime == null || startTime == '')
 		|| (endTime == null || endTime == '') || (typeVal == null || typeVal == '') || (contactId == null || contactId == '') 
 		|| (ownerVal == null || ownerVal == ''))
 	{
 		validateSubmit('ContactCallInsert','\/OnDemand\/user\/ContactCallInsert?OMCR0='+contactPerId+'&OMTHD=Save&OMTGT=ContactCallInsert&OMCBO=Contact&OCNOEDITTYPE=Y&OMRET0=ContactDetail%3focTitle%3dIDC%2bTest2%26OMTGT%3dContactDetailForm%26OMTHD%3dContactDetailNav%26ocEdit%3dY%26OCTYPE%3d%26ocTitleField%3dFull%2bName%26ContactDetailForm.Id%3dAAPA-2TQZ7P&OCTYPE=', this);
+		if(newbutton==1)
+		    saveandnewMidway2();
+		else	
+		saveMidway2();
 	}
-	else if ((prodIDC == null || prodIDC == '' || prodIDC == 'none'))
+	else if ((prodIDC == null || prodIDC == '' || prodIDC == 'none') && (prodIDC2 == null || prodIDC2 == '' || prodIDC2 == 'none'))
 	{
-	//alert("INside ProdIDC if");
-	div1.style.visibility="visible";  
-    }
+	if(newbutton==1)
+		    saveandnewMidway2();
+		else	
+		saveMidway2();
+	div1.style.visibility="visible";
+	div2.style.visibility="visible";
+	}
+	else if (prodIDC == null || prodIDC == '' || prodIDC == 'none')
+	{	div1.style.visibility="visible";
+	if(newbutton==1)
+		    saveandnewMidway2();
+		else	
+		saveMidway2();
+	
+	}
+	else if(prodIDC2 == null || prodIDC2 == '' || prodIDC2 == 'none')
+	{   div2.style.visibility="visible";  
+	if(newbutton==1)
+		    saveandnewMidway2();
+		else	
+		saveMidway2();
+	}
+	else if ((sampIDC == null || sampIDC == '' || sampIDC == 'none') && (sampIDC2 == null || sampIDC2 == '' || sampIDC2 == 'none'))
+	{
+	div3.style.visibility="visible"; 
+	div4.style.visibility="visible"; 
+	if(newbutton==1)
+		    saveandnewMidway2();
+		else	
+		saveMidway2();
+	}
+	else if (sampIDC == null || sampIDC == '' || sampIDC == 'none')
+	{ div3.style.visibility="visible"; 
+	if(newbutton==1)
+		    saveandnewMidway2();
+		else	
+		saveMidway2();
+	}
+	else if (sampIDC2 == null || sampIDC2 == '' || sampIDC2 == 'none')
+	{ div4.style.visibility="visible"; 
+	 if(newbutton==1)
+		    saveandnewMidway2();
+		else	
+		saveMidway2();
+	}
 	else{
 		var fields = {
 			Objective: "" + objectiveVal + "",
@@ -372,7 +516,7 @@ function createActivityIdUsingWeb(fields, fieldsCont, callback)
 			'               <%=fieldsCont%>' +
 			' 		        <ListOfActivity>' +
 			'					<Activity>'	+
-			'		              <%=fields%>' +		
+			'		              <%=fields%>' +				
 			'					</Activity>' +				
 			'         		</ListOfActivity>' +				
 			'            </Contact>' +
@@ -615,16 +759,16 @@ function callWebServToGetProdInfo(fieldsProdet, activityId, reqFrom, callback)
 
 function callWebServToCreateProdDet(productId, activityId, callback)
 {
-	var priorityVal = "";
+	var priorityVal ="";
 	var issueVal = "";
+
 	var indicationVal = document.getElementById('CallProdDetailNew.Indication').value;
 	var priorityVal = document.getElementById('CallProdDetailNew.Priority').value;
 	var issueVal = document.getElementById('CallProdDetailNew.Issue').value;
+
+	if (priorityVal=='' ||priorityVal ==null || priorityVal =='none')	priorityVal ="";
+	if (issueVal =='' ||issueVal  ==null || issueVal =='none')	issueVal  ="";
 	
-	if (priorityVal=='' || priorityVal==null || priorityVal=='none')
-	priorityVal = "";
-	if (issueVal=='' || issueVal==null || issueVal=='none')
-	issueVal = "";
 
 	var fieldsAct = {
 		ActivityId: "" + activityId + ""
@@ -706,14 +850,10 @@ function callWebServToCreateProdDet(productId, activityId, callback)
 
 function callWebServToCreateSampDrop(productId, activityId, callback)
 {
-	var lotNumber = "";
 	var prodCategory = document.getElementById('CallSampDropNew.Primary Product Line Name').value;
 	var lotNumber = document.getElementById('CallSampDropNew.LOT Name').value;
 	var qtyVal = document.getElementById('CallSampDropNew.Quantity').value;
 
-	if (lotNumber=='' || lotNumber==null || lotNumber=='none')
-	lotNumber = "";
-	
 	var fieldsAct = {
 		ActivityId: "" + activityId + ""
 	};
